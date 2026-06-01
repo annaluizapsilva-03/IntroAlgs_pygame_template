@@ -6,7 +6,7 @@ A proposta deve apresentar uma ideia simples, clara e viável para ser desenvolv
 
 ## 1. Nome provisório do jogo
 
-Escreva aqui o nome provisório do jogo.
+Memória Cinematográfica
 
 Exemplo:
 
@@ -16,14 +16,14 @@ Exemplo:
 
 Liste os integrantes do grupo.
 
-- Nome 1:
-- Nome 2:
+- Nome 1:Anna Luiza Pereira Silva
+- Nome 2:Priscila Louzada
 - Nome 3:
 - Nome 4:
 
 ## 3. Tipo de jogo
 
-Indique o tipo de jogo que será desenvolvido.
+Jogo da Memória
 
 Exemplos:
 
@@ -42,7 +42,7 @@ Exemplos:
 
 Tipo escolhido pelo grupo:
 
-> Escreva aqui.
+Jogo da Memória
 
 ## 4. Descrição geral do jogo
 
@@ -56,8 +56,8 @@ Procure responder:
 - Quais desafios aparecem durante a partida?
 
 Descrição:
+O jogo consiste em um tabuleiro com cartas viradas para baixo. Cada carta possui uma imagem relacionada a filmes e séries populares. O jogador deve virar duas cartas por vez e tentar encontrar os pares correspondentes. O objetivo é encontrar todos os pares com o menor número possível de tentativas e no menor tempo possível.
 
-> Escreva aqui.
 
 ## 5. Objetivo do jogador
 
@@ -75,7 +75,7 @@ Exemplos:
 
 Objetivo:
 
-> Escreva aqui.
+Encontrar todos os pares de cartas do tabuleiro antes que o tempo acabe.
 
 ## 6. Regras principais
 
@@ -91,11 +91,11 @@ Exemplo:
 
 Regras do grupo:
 
-- Regra 1:
-- Regra 2:
-- Regra 3:
-- Regra 4:
-- Regra 5:
+- Regra 1:Todas as cartas começam viradas para baixo.
+- Regra 2:O jogador pode selecionar duas cartas por jogada.
+- Regra 3:Se as cartas formarem um par, elas permanecem visíveis
+- Regra 4:Se não formarem um par, elas voltam a ficar viradas para baixo após alguns segundos.
+- Regra 5:O jogo continua até que todos os pares sejam encontrados ou o tempo termine.
 
 ## 7. Condição de vitória
 
@@ -111,7 +111,7 @@ Exemplos:
 
 Condição de vitória:
 
-> Escreva aqui.
+Encontrar todos os pares de cartas antes do fim do tempo.
 
 ## 8. Condição de derrota ou encerramento
 
@@ -127,11 +127,17 @@ Exemplos:
 
 Condição de derrota ou encerramento:
 
-> Escreva aqui.
+O tempo acaba antes que todos os pares sejam encontrados.
 
 ## 9. Elementos previstos no jogo
 
-Descreva os principais elementos que farão parte do jogo.
+* Cartas de filmes e séries.
+* Cronômetro.
+* Sistema de pontuação.
+* Contador de tentativas.
+* Tela inicial.
+* Tela de vitória.
+* Tela de derrota.
 
 ## Jogador ou elemento principal
 
@@ -141,7 +147,7 @@ Exemplo:
 
 Descrição:
 
-> Escreva aqui.
+O jogador deve encontrar os pares de cartas iguais contendo imagens ou nomes de filmes e séries. As cartas ficam viradas para baixo e podem ser reveladas duas por vez.
 
 ## Obstáculos, inimigos ou desafios
 
@@ -150,8 +156,7 @@ Exemplo:
 > Obstáculos aparecem em posições aleatórias e devem ser evitados.
 
 Descrição:
-
-> Escreva aqui.
+O principal desafio é memorizar a posição das cartas e encontrar todos os pares antes que o tempo termine. O jogador perde pontos ao selecionar cartas que não formam um par
 
 ## Itens, alvos ou objetos de interação
 
@@ -160,8 +165,7 @@ Exemplo:
 > Moedas aparecem na tela e aumentam a pontuação quando coletadas.
 
 Descrição:
-
-> Escreva aqui.
+Cartas contendo imagens ou títulos de filmes e séries. O jogador interage com elas para revelar seu conteúdo e encontrar os pares correspondentes.
 
 ## Pontuação, vidas, tempo ou progresso
 
@@ -171,11 +175,13 @@ Exemplo:
 
 Descrição:
 
-> Escreva aqui.
+O jogador ganha 5 pontos para cada par encontrado. O jogo possui um cronômetro de 3 minutos e termina quando todos os pares forem encontrados ou quando o tempo acabar. O progresso é medido pela quantidade de pares completados
 
 ## 10. Controles previstos
 
-Informe os comandos que serão utilizados pelo jogador.
+* Mouse para selecionar as cartas.
+* Botão para reiniciar o jogo.
+
 
 Exemplo:
 
@@ -206,7 +212,17 @@ Exemplo:
 
 Organização planejada:
 
-> Escreva aqui.
+O projeto será organizado em módulos para facilitar a manutenção e compreensão do código:
+
+* main.py – arquivo principal responsável por iniciar o jogo.
+* game.py – lógica principal do jogo da memória.
+* cards.py – gerenciamento das cartas e suas propriedades.
+* score.py – controle de pontuação e recordes.
+* utils.py – funções auxiliares.
+* assets/images – imagens das cartas, filmes e séries.
+* assets/sounds – efeitos sonoros.
+* tests/ – testes das funções principais.
+
 
 
 ## 12. Recursos externos previstos
@@ -221,8 +237,11 @@ Exemplo:
 - fonte personalizada.
 
 Recursos previstos:
-
-> Escreva aqui.
+* Biblioteca Pygame.
+* Imagens de filmes e séries livres para uso acadêmico ou criadas pelo grupo.
+* Ícones gratuitos obtidos em bancos de imagens livres.
+* Efeitos sonoros gratuitos para acertos, erros e vitória.
+* Fontes gratuitas para interface do jogo.
 
 Caso não pretenda utilizar recursos externos, escreva:
 
@@ -230,7 +249,11 @@ Caso não pretenda utilizar recursos externos, escreva:
 
 ## 13. Principais dificuldades esperadas
 
-Liste as dificuldades que o grupo acredita que poderá enfrentar.
+* Implementar corretamente a lógica de comparação das cartas.
+* Controlar o tempo de exibição quando duas cartas diferentes forem selecionadas.
+* Embaralhar as cartas sem comprometer a formação dos pares.
+* Desenvolver uma interface organizada e intuitiva.
+* Salvar e recuperar recordes utilizando arquivos.
 
 Exemplos:
 
@@ -261,7 +284,19 @@ Exemplo:
 
 Escopo mínimo:
 
-> Escreva aqui.
+* Tela inicial.
+* Tabuleiro com cartas embaralhadas.
+* Cartas de filmes e séries.
+* Sistema de clique utilizando o mouse.
+* Verificação automática de pares.
+* Sistema de pontuação.
+* Cronômetro da partida.
+* Tela de vitória.
+* Tela de derrota.
+* Salvamento do recorde em arquivo.
+* Código modularizado e documentado.
+* Testes básicos das funções principais.
+
 
 ## 15. Possíveis melhorias, caso haja tempo
 
@@ -281,6 +316,6 @@ Exemplos:
 
 Melhorias possíveis:
 
-- Melhoria 1:
-- Melhoria 2:
-- Melhoria 3:
+- Melhoria 1:Diferentes níveis de dificuldade.
+- Melhoria 2:Sistema de ranking com vários jogadores.
+- Melhoria 3:Escolha do tema na tela inicial.
