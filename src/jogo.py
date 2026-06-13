@@ -26,6 +26,8 @@ from src.funcoes import (
     tela_inicial,
     tela_vitoria,
     tela_derrota,
+    desenhar_fundo, 
+    iniciar_estrelas, 
 )
 from src.dados import (
     salvar_recorde,
@@ -184,4 +186,4 @@ def executar_jogo():
         pygame.display.update()
  
     pygame.quit()
- 
+    iniciar_estrelas()

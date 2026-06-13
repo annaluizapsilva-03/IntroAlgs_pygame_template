@@ -7,7 +7,39 @@ from src.config import (
     VERDE, AMARELO, VERMELHO, CINZA, FUNDO,
     TEMPO_PARTIDA,
 )
+import random
 
+_estrelas = []
+
+def iniciar_estrelas():
+    global _estrelas
+    _estrelas = [
+        {
+            "x": random.randint(0, LARGURA_TELA),
+            "y": random.randint(0, ALTURA_TELA),
+            "r": random.randint(1, 3),
+            "brilho": random.randint(100, 255),
+            "vel": random.uniform(0.3, 1.0),
+        }
+        for _ in range(80)
+    ]
+
+def desenhar_fundo(tela):
+   
+    global _estrelas
+
+    for y in range(ALTURA_TELA):
+        ratio = y / ALTURA_TELA
+        r = int(10  + ratio * 40)
+        g = int(0   + ratio * 10)
+        b = int(40  + ratio * 60)
+        pygame.draw.line(tela, (r, g, b), (0, y), (LARGURA_TELA, y))
+
+    for e in _estrelas:
+        e["brilho"] += e["vel"] * random.choice([-1, 1]) * 3
+        e["brilho"] = max(80, min(255, e["brilho"]))
+        cor = (e["brilho"], e["brilho"], int(e["brilho"] * 0.8))
+        pygame.draw.circle(tela, cor, (e["x"], e["y"]), e["r"])
   
 def calcular_pontos(pontos_atuais, bonus):
     return pontos_atuais + bonus
@@ -64,37 +96,103 @@ def calcular_tempo_restante(tempo_inicio):
     tempo_passado = (pygame.time.get_ticks() - tempo_inicio) // 1000
     return max(0, TEMPO_PARTIDA - tempo_passado)
  
- 
 def desenhar_carta(tela, carta, fonte_titulo, fonte_carta):
     x = carta["x"]
     y = carta["y"]
- 
+    cx = x + LARGURA_CARTA // 2
+    cy = y + ALTURA_CARTA  // 2
+
     if carta["acertada"]:
-        pygame.draw.rect(tela, VERDE, (x, y, LARGURA_CARTA, ALTURA_CARTA), border_radius=8)
-        pygame.draw.rect(tela, PRETO, (x, y, LARGURA_CARTA, ALTURA_CARTA), 2, border_radius=8)
-        texto = fonte_carta.render(carta["nome"], True, PRETO)
-        tela.blit(texto, (x + LARGURA_CARTA // 2 - texto.get_width() // 2,
-                          y + ALTURA_CARTA  // 2 - texto.get_height() // 2))
- 
+        # Fundo verde com brilho
+        pygame.draw.rect(tela, (80, 200, 100), (x, y, LARGURA_CARTA, ALTURA_CARTA), border_radius=10)
+        pygame.draw.rect(tela, (50, 150, 70),  (x, y, LARGURA_CARTA, ALTURA_CARTA), 3, border_radius=10)
+        txt = fonte_carta.render(carta["nome"], True, PRETO)
+        tela.blit(txt, (cx - txt.get_width()//2, cy - txt.get_height()//2))
+
     elif carta["virada"]:
-        pygame.draw.rect(tela, BRANCO,      (x, y, LARGURA_CARTA, ALTURA_CARTA), border_radius=8)
-        pygame.draw.rect(tela, ROXO_ESCURO, (x, y, LARGURA_CARTA, ALTURA_CARTA), 2, border_radius=8)
-        txt_emoji = fonte_carta.render(carta["emoji"], True, PRETO)
-        tela.blit(txt_emoji, (x + LARGURA_CARTA // 2 - txt_emoji.get_width() // 2, y + 20))
-        txt_nome = fonte_carta.render(carta["nome"], True, ROXO_ESCURO)
-        tela.blit(txt_nome,  (x + LARGURA_CARTA // 2 - txt_nome.get_width() // 2,  y + 60))
- 
+        # Fundo branco
+        pygame.draw.rect(tela, BRANCO,      (x, y, LARGURA_CARTA, ALTURA_CARTA), border_radius=10)
+        pygame.draw.rect(tela, ROXO_ESCURO, (x, y, LARGURA_CARTA, ALTURA_CARTA), 3, border_radius=10)
+
+        # Ícone desenhado por nome
+        _desenhar_icone(tela, carta["nome"], cx, cy - 10)
+
+        txt = fonte_carta.render(carta["nome"], True, ROXO_ESCURO)
+        tela.blit(txt, (cx - txt.get_width()//2, y + ALTURA_CARTA - 22))
+
     else:
-        pygame.draw.rect(tela, ROXO,        (x, y, LARGURA_CARTA, ALTURA_CARTA), border_radius=8)
-        pygame.draw.rect(tela, ROXO_ESCURO, (x, y, LARGURA_CARTA, ALTURA_CARTA), 2, border_radius=8)
+        # Carta virada — fundo roxo com padrão de filme
+        pygame.draw.rect(tela, (120, 80, 180), (x, y, LARGURA_CARTA, ALTURA_CARTA), border_radius=10)
+        pygame.draw.rect(tela, ROXO_ESCURO,    (x, y, LARGURA_CARTA, ALTURA_CARTA), 3, border_radius=10)
+        # Tira de filme decorativa
+        pygame.draw.rect(tela, (80, 40, 120), (x+8, y+8, LARGURA_CARTA-16, 14), border_radius=3)
+        pygame.draw.rect(tela, (80, 40, 120), (x+8, ALTURA_CARTA+y-22, LARGURA_CARTA-16, 14), border_radius=3)
+        for fx in range(x+14, x+LARGURA_CARTA-14, 16):
+            pygame.draw.rect(tela, (160, 120, 220), (fx, y+10, 10, 10), border_radius=2)
+            pygame.draw.rect(tela, (160, 120, 220), (fx, ALTURA_CARTA+y-20, 10, 10), border_radius=2)
+        # Ponto de interrogação
         ponto = fonte_titulo.render("?", True, BRANCO)
-        tela.blit(ponto, (x + LARGURA_CARTA // 2 - ponto.get_width() // 2,
-                          y + ALTURA_CARTA  // 2 - ponto.get_height() // 2))
+        tela.blit(ponto, (cx - ponto.get_width()//2, cy - ponto.get_height()//2))
+
+
+def _desenhar_icone(tela, nome, cx, cy):
+    if nome == "Breaking Bad":
+        pygame.draw.rect(tela, (200, 230, 100), (cx-8, cy-18, 16, 22), border_radius=3)
+        pygame.draw.rect(tela, (150, 180, 60),  (cx-5, cy-22, 10, 6),  border_radius=2)
+        pygame.draw.circle(tela, (100, 220, 80), (cx, cy+2), 6)
+
+    elif nome == "Rei Leao":
+        pygame.draw.circle(tela, (255, 200, 0), (cx, cy), 12)
+        for ang in range(0, 360, 45):
+            import math
+            rx = cx + int(18 * math.cos(math.radians(ang)))
+            ry = cy + int(18 * math.sin(math.radians(ang)))
+            pygame.draw.line(tela, (255, 160, 0), (cx, cy), (rx, ry), 2)
+
+    elif nome == "Homem Aranha":
+        pygame.draw.circle(tela, (220, 30, 30), (cx, cy), 14, 2)
+        pygame.draw.line(tela, (220, 30, 30), (cx-14, cy), (cx+14, cy), 2)
+        pygame.draw.line(tela, (220, 30, 30), (cx, cy-14), (cx, cy+14), 2)
+        pygame.draw.line(tela, (220, 30, 30), (cx-10, cy-10), (cx+10, cy+10), 2)
+        pygame.draw.line(tela, (220, 30, 30), (cx+10, cy-10), (cx-10, cy+10), 2)
+
+    elif nome == "Game of Thrones":
+        pontos = [
+            (cx-14, cy+8), (cx-14, cy-4), (cx-8,  cy-12),
+            (cx,    cy-4), (cx+8,  cy-12),(cx+14, cy-4),
+            (cx+14, cy+8),
+        ]
+        pygame.draw.polygon(tela, (220, 180, 0), pontos)
+        pygame.draw.polygon(tela, (180, 140, 0), pontos, 2)
+
+    elif nome == "Interestelar":
+        pygame.draw.circle(tela, (100, 150, 220), (cx, cy), 10)
+        pygame.draw.ellipse(tela, (180, 200, 255), (cx-18, cy-5, 36, 10), 2)
+
+    elif nome == "Ex Machina":
+        pygame.draw.rect(tela, (180, 180, 200), (cx-10, cy-14, 20, 22), border_radius=4)
+        pygame.draw.circle(tela, (0, 200, 255), (cx-4, cy-6), 3)
+        pygame.draw.circle(tela, (0, 200, 255), (cx+4, cy-6), 3)
+        pygame.draw.line(tela, (100, 100, 120), (cx-5, cy+4), (cx+5, cy+4), 2)
+
+    elif nome == "Harry Potter":
+        pygame.draw.line(tela, (180, 120, 60), (cx-12, cy+12), (cx+8, cy-8), 3)
+        pygame.draw.circle(tela, (255, 240, 100), (cx+10, cy-10), 5)
+
+    elif nome == "Moana":
+        import math
+        pontos_onda = [
+            (cx - 14 + i, cy + int(8 * math.sin(math.radians(i * 20))))
+            for i in range(29)
+        ]
+        if len(pontos_onda) > 1:
+            pygame.draw.lines(tela, (0, 150, 220), False, pontos_onda, 3)
+        pygame.draw.circle(tela, (255, 200, 50), (cx, cy-10), 7)
  
 def desenhar_hud(tela, pontos, recorde, tempo_restante, total_pares, pares_certos, fontes):
     fonte_titulo, fonte_normal, fonte_carta = fontes
  
-    tela.fill(FUNDO)
+    desenhar_fundo(tela)
 
     titulo = fonte_titulo.render("Memoria Cinematografica", True, ROXO_ESCURO)
     titulo_x = LARGURA_TELA // 2 - titulo.get_width() // 2
