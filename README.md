@@ -1,6 +1,4 @@
-# Nome do Jogo
-
-Memória Cinematrográfica
+# Memória Cinematrográfica
 
 Projeto final da disciplina de Introdução a Algoritmos/Programação, desenvolvido com Python e Pygame.
 
