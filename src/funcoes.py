@@ -91,10 +91,9 @@ def criar_cartas(pares, largura_carta, altura_carta, colunas):
     return cartas
  
  
-def calcular_tempo_restante(tempo_inicio):
-    
+def calcular_tempo_restante(tempo_inicio, tempo_total=TEMPO_PARTIDA):
     tempo_passado = (pygame.time.get_ticks() - tempo_inicio) // 1000
-    return max(0, TEMPO_PARTIDA - tempo_passado)
+    return max(0, tempo_total - tempo_passado)
  
 def desenhar_carta(tela, carta, fonte_titulo, fonte_carta):
     x = carta["x"]
@@ -303,4 +302,5 @@ def tela_derrota(tela, pontos, recorde, fonte_titulo, fonte_normal):
     tela.blit(msg2, (LARGURA_TELA // 2 - msg2.get_width() // 2, ALTURA_TELA // 2 - 10))
     tela.blit(msg3, (LARGURA_TELA // 2 - msg3.get_width() // 2, ALTURA_TELA // 2 + 30))
     tela.blit(msg4, (LARGURA_TELA // 2 - msg4.get_width() // 2, ALTURA_TELA // 2 + 80))
+ 
  
