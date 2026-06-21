@@ -168,11 +168,17 @@ def _desenhar_icone(tela, nome, cx, cy):
         pygame.draw.circle(tela, (100, 150, 220), (cx, cy), 10)
         pygame.draw.ellipse(tela, (180, 200, 255), (cx-18, cy-5, 36, 10), 2)
 
-    elif nome == "Ex Machina":
-        pygame.draw.rect(tela, (180, 180, 200), (cx-10, cy-14, 20, 22), border_radius=4)
-        pygame.draw.circle(tela, (0, 200, 255), (cx-4, cy-6), 3)
-        pygame.draw.circle(tela, (0, 200, 255), (cx+4, cy-6), 3)
-        pygame.draw.line(tela, (100, 100, 120), (cx-5, cy+4), (cx+5, cy+4), 2)
+       elif nome == "Batman":
+        cor = (20, 20, 30)
+        pygame.draw.ellipse(tela, cor, (cx-6, cy-10, 12, 16))
+        pygame.draw.polygon(tela, cor, [
+            (cx-6, cy-4), (cx-22, cy-14), (cx-14, cy+2), (cx-6, cy-2)
+        ])
+        pygame.draw.polygon(tela, cor, [
+            (cx+6, cy-4), (cx+22, cy-14), (cx+14, cy+2), (cx+6, cy-2)
+        ])
+        pygame.draw.polygon(tela, cor, [(cx-4, cy-10), (cx-2, cy-16), (cx, cy-10)])
+        pygame.draw.polygon(tela, cor, [(cx, cy-10), (cx+2, cy-16), (cx+4, cy-10)])
 
     elif nome == "Harry Potter":
         pygame.draw.line(tela, (180, 120, 60), (cx-12, cy+12), (cx+8, cy-8), 3)
