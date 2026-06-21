@@ -6,7 +6,7 @@ PARES = [
     ("🕷", "Homem Aranha"),
     ("🐉", "Game of Thrones"),
     ("🚀", "Interestelar"),
-    ("🤖", "Ex Machina"),
+    ("🦇", "Batman"), 
     ("🧙", "Harry Potter"),
     ("🌊", "Moana"),
 ]
