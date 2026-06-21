@@ -168,7 +168,7 @@ def _desenhar_icone(tela, nome, cx, cy):
         pygame.draw.circle(tela, (100, 150, 220), (cx, cy), 10)
         pygame.draw.ellipse(tela, (180, 200, 255), (cx-18, cy-5, 36, 10), 2)
 
-       elif nome == "Batman":
+    elif nome == "Batman":
         cor = (20, 20, 30)
         pygame.draw.ellipse(tela, cor, (cx-6, cy-10, 12, 16))
         pygame.draw.polygon(tela, cor, [

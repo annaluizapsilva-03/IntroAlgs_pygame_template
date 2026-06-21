@@ -219,7 +219,7 @@ def executar_jogo():
         pygame.display.update()
 
     pygame.quit()
-        pygame.display.update()
+    pygame.display.update()
  
     pygame.quit()
   
