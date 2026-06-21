@@ -242,7 +242,7 @@ def tela_inicial(tela, fonte_titulo, fonte_normal):
     sub    = fonte_normal.render("Encontre todos os pares antes do tempo acabar!", True, ROXO)
     inst1  = fonte_normal.render("Clique em duas cartas para revelar", True, PRETO)
     inst2  = fonte_normal.render("Pares corretos valem 5 pontos", True, PRETO)
-    inst3  = fonte_normal.render("Voce tem 3 minutos!", True, PRETO)
+    inst3  = fonte_normal.render("Voce tem, no mínimo, 1 minuto e 30 segundos!", True, PRETO)
  
     tela.blit(titulo, (LARGURA_TELA // 2 - titulo.get_width() // 2, 100))
     tela.blit(sub,    (LARGURA_TELA // 2 - sub.get_width() // 2, 170))
